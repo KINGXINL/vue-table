@@ -833,7 +833,6 @@ export default {
   .k-top {
     width: 100%;
     flex: 0 auto;
-    margin-top: -1px;
     tr th.main-th {
       border-top: 1px solid #ebeef5;
       border-bottom: 1px solid #ebeef5;
@@ -892,6 +891,7 @@ export default {
   }
   .k-main {
     flex: 1;
+    margin-top: -1px;
     width: 100%;
     overflow: hidden;
     position: relative;
