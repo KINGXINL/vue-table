@@ -515,6 +515,9 @@ export default {
       }
       this.verificationIsAllCheck();
       this.calculatedShowData();
+      this.$nextTick(() => {
+        this.$refs.mainRight.scrollLeft = 10000000;
+      });
     },
     field() {
       this.calculatedFieldWidth();
@@ -584,6 +587,8 @@ export default {
       this.$emit("sort", e);
     });
     this.calculatedHiddenHeight();
+  },
+  activated() {
     this.$nextTick(() => {
       this.$refs.mainRight.scrollLeft = 10000000;
     });
@@ -828,9 +833,10 @@ export default {
   .k-top {
     width: 100%;
     flex: 0 auto;
+    margin-top: -1px;
     tr th.main-th {
       border-top: 1px solid #ebeef5;
-      // border-bottom: 1px solid #EBEEF5;
+      border-bottom: 1px solid #ebeef5;
       border-left: 1px solid #ebeef5;
       border-right: 1px solid #ebeef5;
     }
@@ -897,7 +903,7 @@ export default {
       text-align: center;
     }
     .CurrentRow {
-      background-color: #F5F7FA;
+      background-color: #f5f7fa;
     }
     .k-main-main {
       top: 0;
