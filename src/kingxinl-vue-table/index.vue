@@ -587,6 +587,9 @@ export default {
       this.$emit("sort", e);
     });
     this.calculatedHiddenHeight();
+    this.$nextTick(() => {
+      this.$refs.mainRight.scrollLeft = 10000000;
+    });
   },
   activated() {
     this.$nextTick(() => {
@@ -891,7 +894,6 @@ export default {
   }
   .k-main {
     flex: 1;
-    margin-top: -1px;
     width: 100%;
     overflow: hidden;
     position: relative;
