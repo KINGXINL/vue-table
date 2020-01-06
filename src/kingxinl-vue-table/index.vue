@@ -837,7 +837,7 @@ export default {
   .k-top {
     width: 100%;
     flex: 0 auto;
-    z-index: 11;
+    z-index: 12;
     tr th.main-th {
       border-top: 1px solid #ebeef5;
       border-bottom: 1px solid #ebeef5;
