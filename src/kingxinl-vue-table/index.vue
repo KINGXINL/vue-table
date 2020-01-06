@@ -594,6 +594,7 @@ export default {
   activated() {
     this.$nextTick(() => {
       this.$refs.mainRight.scrollLeft = 10000000;
+      this.$refs.mainHidden.scrollTop = this.count * (this.TdHeight + 1);
     });
   },
   methods: {
@@ -836,6 +837,7 @@ export default {
   .k-top {
     width: 100%;
     flex: 0 auto;
+    z-index: 11;
     tr th.main-th {
       border-top: 1px solid #ebeef5;
       border-bottom: 1px solid #ebeef5;
@@ -893,6 +895,7 @@ export default {
     }
   }
   .k-main {
+    margin-top: -1px;
     flex: 1;
     width: 100%;
     overflow: hidden;
