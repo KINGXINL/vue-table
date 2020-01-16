@@ -104,8 +104,11 @@ export default {
 <style lang="scss" scoped>
 .body {
   overflow: hidden;
+  display: flex;
+  align-items: center;
   .body-main {
-    padding: 5px 10px;
+    flex: 1;
+    padding: 5px 6px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

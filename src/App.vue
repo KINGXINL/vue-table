@@ -9,6 +9,7 @@
         @scroll="scroll"
         :row_key="['id']"
         :reserveSelection="true"
+        :TdHeight="40"
       ></ktable>
     </div>
     <div class="fool"></div>
@@ -62,6 +63,7 @@ body {
   color: #2c3e50;
 }
 #nav {
+  padding: 20px;
   height: 300px;
   a {
     font-weight: bold;

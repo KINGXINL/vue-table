@@ -60,7 +60,7 @@ import 自定义名称 from "k-vue-table";
     </tbody>
 </table>
 
-### 表格方法
+### 表格事件
 <table style="width:100%;">
     <thead>
         <tr>
@@ -146,6 +146,32 @@ import 自定义名称 from "k-vue-table";
             <td>自定义渲染列,使用 Vue 的 Render 函数。传入两个参数,第一个是 h,第二个为对象,包含 column(当前列参数)、key(当前列key) 和 value(当前列参数)</td>
             <td>Function</td>
             <td>-</td>
+        </tr>
+    </tbody>
+</table>
+
+### 表格方法
+<table style="width:100%;">
+    <thead>
+        <tr>
+            <th>方法名</th>
+            <th width="250">参数</th>
+            <th width="250">说明</th>
+            <th> 返回值</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>toggleCheckAll</td>
+            <td>Boolean</td>
+            <td>根据传入参数设置全选或清除所有选中</td>
+            <td>已选中的数据</td>
+        </tr>
+        <tr>
+            <td>invertSelection</td>
+            <td>-</td>
+            <td>反选</td>
+            <td>已选中的数据</td>
         </tr>
     </tbody>
 </table>

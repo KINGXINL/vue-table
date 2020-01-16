@@ -105,7 +105,7 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0 10px;
+  padding: 0 6px;
   input {
     width: 100%;
   }
