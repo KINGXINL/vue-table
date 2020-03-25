@@ -147,7 +147,7 @@ export default {
   }
   .render {
     display: flex;
-    padding: 5px 0;
+    padding: 0 0 5px 0;
   }
 }
 </style>

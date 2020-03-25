@@ -158,9 +158,9 @@
                 <template v-for="(item, index) in fields">
                   <td
                     @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem)"
+                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex?'CurrentRow ':'']"
+                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
                     :style="{height: TdHeight + 'px'}"
                     class="visibility"
                     v-if="item.fixed == 'left'"
@@ -171,16 +171,16 @@
                       :vue="is"
                       :field="item"
                       :select="selectData"
-                      :index="showIndex +Math.ceil(count)"
+                      :index="showIndex + Math.ceil(count)"
                     ></body-item>
                   </td>
                 </template>
                 <template v-for="(item, index) in fields">
                   <td
                     @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem)"
+                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex?'CurrentRow ':'']"
+                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
                     :style="{height: TdHeight + 'px'}"
                     class="main-td"
                     v-if="item.fixed != 'left' && item.fixed != 'right'"
@@ -191,16 +191,16 @@
                       :vue="is"
                       :field="item"
                       :select="selectData"
-                      :index="showIndex +Math.ceil(count)"
+                      :index="showIndex + Math.ceil(count)"
                     ></body-item>
                   </td>
                 </template>
                 <template v-for="(item, index) in fields">
                   <td
                     @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem)"
+                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex?'CurrentRow ':'']"
+                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
                     :style="{height: TdHeight + 'px'}"
                     class="visibility"
                     v-if="item.fixed == 'right'"
@@ -211,7 +211,7 @@
                       :vue="is"
                       :field="item"
                       :select="selectData"
-                      :index="showIndex +Math.ceil(count)"
+                      :index="showIndex + Math.ceil(count)"
                     ></body-item>
                   </td>
                 </template>
@@ -261,9 +261,9 @@
                 <template v-for="(item, index) in fields">
                   <td
                     @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem)"
+                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex?'CurrentRow ':'']"
+                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
                     :style="{height: TdHeight + 'px'}"
                     class="main-td"
                     v-if="item.fixed == 'left'"
@@ -274,16 +274,16 @@
                       :vue="is"
                       :field="item"
                       :select="selectData"
-                      :index="showIndex +Math.ceil(count)"
+                      :index="showIndex + Math.ceil(count)"
                     ></body-item>
                   </td>
                 </template>
                 <!-- <template v-for="(item, index) in fields">
                   <td
                     @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem)"
+                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex?'CurrentRow ':'']"
+                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
                     :style="{height: TdHeight + 'px'}"
                     class="visibility"
                     v-if="item.fixed != 'left' && item.fixed != 'right'"
@@ -294,16 +294,16 @@
                       :vue="is"
                       :field="item"
                       :select="selectData"
-                      :index="showIndex +Math.ceil(count)"
+                      :index="showIndex + Math.ceil(count)"
                     ></body-item>
                   </td>
                 </template>
                 <template v-for="(item, index) in fields">
                   <td
                     @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem)"
+                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex?'CurrentRow ':'']"
+                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
                     :style="{height: TdHeight + 'px'}"
                     class="visibility"
                     v-if="item.fixed == 'right'"
@@ -314,7 +314,7 @@
                       :vue="is"
                       :field="item"
                       :select="selectData"
-                      :index="showIndex +Math.ceil(count)"
+                      :index="showIndex + Math.ceil(count)"
                     ></body-item>
                   </td>
                 </template>-->
@@ -364,9 +364,9 @@
                 <!-- <template v-for="(item, index) in fields">
                   <td
                     @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem)"
+                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex?'CurrentRow ':'']"
+                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
                     :style="{height: TdHeight + 'px'}"
                     class="visibility"
                     v-if="item.fixed == 'left'"
@@ -377,16 +377,16 @@
                       :vue="is"
                       :field="item"
                       :select="selectData"
-                      :index="showIndex +Math.ceil(count)"
+                      :index="showIndex + Math.ceil(count)"
                     ></body-item>
                   </td>
                 </template>
                 <template v-for="(item, index) in fields">
                   <td
                     @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem)"
+                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex?'CurrentRow ':'']"
+                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
                     :style="{height: TdHeight + 'px'}"
                     class="visibility"
                     v-if="item.fixed != 'left' && item.fixed != 'right'"
@@ -397,16 +397,16 @@
                       :vue="is"
                       :field="item"
                       :select="selectData"
-                      :index="showIndex +Math.ceil(count)"
+                      :index="showIndex + Math.ceil(count)"
                     ></body-item>
                   </td>
                 </template>-->
                 <template v-for="(item, index) in fields">
                   <td
                     @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem)"
+                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex?'CurrentRow ':'']"
+                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
                     :style="{height: TdHeight + 'px'}"
                     class="main-td"
                     v-if="item.fixed == 'right'"
@@ -417,7 +417,7 @@
                       :vue="is"
                       :field="item"
                       :select="selectData"
-                      :index="showIndex +Math.ceil(count)"
+                      :index="showIndex + Math.ceil(count)"
                     ></body-item>
                   </td>
                 </template>
@@ -451,6 +451,7 @@ export default {
     return {
       is: this,
       CurrentRow: -1,
+      ClickRow: -1,
       mainLeftWidth: 0,
       mainRightWidth: 0,
       TableWidth: 0,
@@ -669,7 +670,11 @@ export default {
       } else {
         this.selectData = {};
       }
-      return this.selectData;
+      this.verificationIsAllCheck();
+      return Object.values(this.selectData);
+    },
+    getSelection() {
+      return Object.values(this.selectData);
     },
     invertSelection() {
       let NewSelectData = {};
@@ -689,9 +694,11 @@ export default {
         }
       }
       this.selectData = NewSelectData;
-      return this.selectData;
+      this.verificationIsAllCheck();
+      return Object.values(this.selectData);
     },
-    clickDetail(detail) {
+    clickDetail(detail, index) {
+      this.ClickRow = index;
       this.$emit("clickDetail", detail);
     },
     calculatedHiddenHeight() {
