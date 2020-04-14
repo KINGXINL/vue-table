@@ -1,14 +1,28 @@
 <template>
   <div id="app">
-    <div class="tops"></div>
+    <div class="tops">
+      <button @click="test">滚动到指定位置</button>
+    </div>
     <div id="nav">
       <ktable
+        ref="test"
+        :field="fields"
+        :data="data"
+        @sort="sort"
+        @scroll="scroll"
+        :reserveSelection="true"
+        @checkBoxAll="test"
+        :TdHeight="40"
+      ></ktable>
+      <ktable
+        ref="asdv"
         :field="fields"
         :data="data"
         @sort="sort"
         @scroll="scroll"
         :row_key="['id']"
         :reserveSelection="true"
+        @checkBoxAll="clickDetail"
         :TdHeight="40"
       ></ktable>
     </div>
@@ -25,8 +39,8 @@ export default {
   },
   data() {
     return {
-      data: Array.from(Array(70), (i, k) => {
-        return { id: k };
+      data: Array.from(Array(99), (i, k) => {
+        return {id: k};
       }),
       fields: fields.call(this),
       i: 1
@@ -35,13 +49,21 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    test() {
+      this.$refs.test.scrollTo(111);
+    },
+    clickDetail(a) {
+      console.log(a);
+    },
     sort() {
       this.data = this.data.sort(function(a, b) {
         return b.id - a.id;
       });
     },
     onSearch() {},
-    scroll() {},
+    scroll() {
+      // this.data.push({ id: this.data.length + 2 });
+    },
     toModifyPage(v) {
       console.log(v);
     }
@@ -75,8 +97,8 @@ body {
   }
 }
 #app {
-  display: flex;
-  flex-direction: column-reverse;
+  // display: flex;
+  // flex-direction: column-reverse;
   .tops {
     flex-grow: 1;
   }

@@ -8,7 +8,7 @@
         <template v-else-if="field.render">
           <component
             :render="field.render"
-            :params="{column: field,key: field.key, value: value}"
+            :params="{column: field,key: field.key, value: value, index: index}"
             :is="renderView"
           ></component>
         </template>

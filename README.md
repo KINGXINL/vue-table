@@ -173,5 +173,11 @@ import 自定义名称 from "k-vue-table";
             <td>反选</td>
             <td>已选中的数据</td>
         </tr>
+        <tr>
+            <td>scrollTo</td>
+            <td>0(当前行在数组中的位置)</td>
+            <td>滚动到指定的行数</td>
+            <td>-</td>
+        </tr>
     </tbody>
 </table>

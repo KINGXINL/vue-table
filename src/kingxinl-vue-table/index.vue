@@ -154,6 +154,11 @@
               </template>
             </colgroup>
             <tbody>
+              <tr>
+                <template v-if="showData.length == 0">
+                  <td v-for="(item, index) in fields" :key="index" style="height: 10px;"></td>
+                </template>
+              </tr>
               <tr v-for="(showItem, showIndex) in showData" :key="showIndex">
                 <template v-for="(item, index) in fields">
                   <td
@@ -502,7 +507,7 @@ export default {
       const dataInstanceChanged = this.data_ !== this.data;
       this.data_ = this.data;
       if (this.row_key.length > 0) {
-        if (!dataInstanceChanged && this.reserveSelection) {
+        if (this.reserveSelection) {
           let NewSelectData = {};
           for (let x of this.data_) {
             let Key = [];
@@ -622,6 +627,21 @@ export default {
     });
   },
   methods: {
+    scrollTo(number) {
+      let length = this.data.length;
+      let count = Math.ceil(number);
+      let showLength = Math.ceil(
+        this.$refs.mainHidden.clientHeight / (parseInt(this.TdHeight) + 1)
+      );
+      if (0 < count < length - showLength) {
+        this.$refs.mainHidden.scrollTop = (parseInt(this.TdHeight) + 1) * count;
+      } else if (count + showLength > length || count > length) {
+        this.$refs.mainHidden.scrollTop =
+          (parseInt(this.TdHeight) + 1) * length - showLength;
+      } else if (count <= 0) {
+        this.$refs.mainHidden.scrollTop = 0;
+      }
+    },
     verificationIsAllCheck() {
       // 判断是否全选
       let selectStatus = true;
@@ -674,12 +694,16 @@ export default {
       return Object.values(this.selectData);
     },
     getSelection() {
-      return Object.values(this.selectData);
+      if (this.row_key.length > 0) {
+        return Object.keys(this.selectData);
+      } else {
+        return Object.values(this.selectData);
+      }
     },
     invertSelection() {
       let NewSelectData = {};
       for (let x in this.data_) {
-        if (this.row_key) {
+        if (this.row_key.length > 0) {
           let Key = [];
           for (let rowKey of this.row_key) {
             Key.push(this.data[x][rowKey]);
@@ -699,7 +723,7 @@ export default {
     },
     clickDetail(detail, index) {
       this.ClickRow = index;
-      this.$emit("clickDetail", detail);
+      this.$emit("clickDetail", detail, index);
     },
     calculatedHiddenHeight() {
       // 计算表格数据的高度
