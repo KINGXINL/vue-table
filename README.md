@@ -160,10 +160,10 @@ import 自定义名称 from "k-vue-table";
     <thead>
         <tr>
             <th>方法名</th>
-            <th width="250">参数</th>
-            <th width="250">默认值</th>
-            <th width="250">说明</th>
-            <th> 返回值</th>
+            <th width="200">参数</th>
+            <th width="200">默认值</th>
+            <th width="200">说明</th>
+            <th width="200"> 返回值</th>
         </tr>
     </thead>
     <tbody>
