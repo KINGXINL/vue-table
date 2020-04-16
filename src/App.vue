@@ -50,7 +50,7 @@ export default {
   mounted() {},
   methods: {
     test() {
-      this.$refs.test.scrollTo(111);
+      this.$refs.test.getScrollPosition();
     },
     clickDetail(a) {
       console.log(a);

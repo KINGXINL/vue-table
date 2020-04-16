@@ -80,6 +80,11 @@ import 自定义名称 from "k-vue-table";
             <td>多选模式下,点击某行多选框时触发</td>
             <td>selection：已选项数据, row:当前行数据</td>
         </tr>
+        <tr>
+            <td>clickDetail</td>
+            <td>点击某一行触发</td>
+            <td>detail：当前行的数据, index:当前行的位置</td>
+        </tr>
          <tr>
             <td>scroll</td>
             <td>表格滚动时触发</td>
@@ -133,7 +138,7 @@ import 自定义名称 from "k-vue-table";
             <td>fixed</td>
             <td>列是否固定在左侧或者右侧,可选值为 left 左侧和 right 右侧</td>
             <td>String</td>
-            <td>left</td>
+            <td>-</td>
         </tr>
          <tr>
             <td>renderHeader</td>
@@ -156,6 +161,7 @@ import 自定义名称 from "k-vue-table";
         <tr>
             <th>方法名</th>
             <th width="250">参数</th>
+            <th width="250">默认值</th>
             <th width="250">说明</th>
             <th> 返回值</th>
         </tr>
@@ -164,20 +170,30 @@ import 自定义名称 from "k-vue-table";
         <tr>
             <td>toggleCheckAll</td>
             <td>Boolean</td>
+            <td>-</td>
             <td>根据传入参数设置全选或清除所有选中</td>
             <td>已选中的数据</td>
         </tr>
         <tr>
             <td>invertSelection</td>
             <td>-</td>
+            <td>-</td>
             <td>反选</td>
             <td>已选中的数据</td>
         </tr>
         <tr>
             <td>scrollTo</td>
-            <td>0(当前行在数组中的位置)</td>
+            <td>Number</td>
+            <td>-</td>
             <td>滚动到指定的行数</td>
             <td>-</td>
+        </tr>
+        <tr>
+            <td>getScrollPosition</td>
+            <td>-</td>
+            <td>-</td>
+            <td>获取当前第一行在数组中的位置</td>
+            <td>0</td>
         </tr>
     </tbody>
 </table>

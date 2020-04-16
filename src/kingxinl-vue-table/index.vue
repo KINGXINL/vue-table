@@ -627,7 +627,10 @@ export default {
     });
   },
   methods: {
-    scrollTo(number) {
+    getScrollPosition() {
+      return this.count;
+    },
+    scrollTo(number = 0) {
       let length = this.data.length;
       let count = Math.ceil(number);
       let showLength = Math.ceil(
@@ -937,7 +940,6 @@ export default {
     right: 0;
     width: 100%;
     height: 100%;
-    min-height: 300px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
