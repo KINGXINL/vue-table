@@ -28,12 +28,6 @@ import 自定义名称 from "k-vue-table";
             <td>30</td>
         </tr>
         <tr>
-            <td>selectList</td>
-            <td>选中的数据（row_key有设置时键为数组用row_key的值使用|:|连接</td>
-            <td>Object</td>
-            <td>{}</td>
-        </tr>
-        <tr>
             <td>field</td>
             <td>表格列字段</td>
             <td>Object</td>
@@ -60,6 +54,24 @@ import 自定义名称 from "k-vue-table";
         <tr>
             <td>reserveSelection</td>
             <td>数据变更时是否保留上次选中数据 row_key有设置时才生效</td>
+            <td>Boolean</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>row_join</td>
+            <td>选中的对象的键组合字段</td>
+            <td>String</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>selectList</td>
+            <td>选中的数据（row_key有设置时键为数组用row_key的值使用row_join连接</td>
+            <td>Object</td>
+            <td>{}</td>
+        </tr>
+        <tr>
+            <td>clickShow</td>
+            <td>是否显示背景色</td>
             <td>Boolean</td>
             <td>false</td>
         </tr>
