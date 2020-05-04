@@ -38,7 +38,7 @@ export default {
       for (let rowKey of this.vue.row_key) {
         Key.push(this.value[rowKey]);
       }
-      this.checkStatus = Key.join("|:|") in this.vue.selectData;
+      this.checkStatus = Key.join(this.vue.row_join) in this.vue.selectData;
     } else {
       this.checkStatus = this.index in this.vue.selectData;
     }
@@ -72,7 +72,7 @@ export default {
         for (let rowKey of this.vue.row_key) {
           Key.push(this.value[rowKey]);
         }
-        this.checkStatus = Key.join("|:|") in this.vue.selectData;
+        this.checkStatus = Key.join(this.vue.row_join) in this.vue.selectData;
       } else {
         this.checkStatus = this.index in this.vue.selectData;
       }
@@ -83,7 +83,7 @@ export default {
         for (let rowKey of this.vue.row_key) {
           Key.push(this.value[rowKey]);
         }
-        this.checkStatus = Key.join("|:|") in this.vue.selectData;
+        this.checkStatus = Key.join(this.vue.row_join) in this.vue.selectData;
       } else {
         this.checkStatus = this.index in this.vue.selectData;
       }

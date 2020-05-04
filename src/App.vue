@@ -6,13 +6,15 @@
     <div id="nav">
       <ktable
         ref="test"
-        :field="fields"
         :data="data"
+        :field="fields"
+        :TdHeight="40"
+        :row_key="['id']"
+        :reserveSelection="true"
+        :selectList.sync="select"
         @sort="sort"
         @scroll="scroll"
-        :reserveSelection="true"
         @checkBoxAll="test"
-        :TdHeight="40"
       ></ktable>
       <ktable
         ref="asdv"
@@ -20,6 +22,7 @@
         :data="data"
         @sort="sort"
         @scroll="scroll"
+        :selectList.sync="selects"
         :row_key="['id']"
         :reserveSelection="true"
         @checkBoxAll="clickDetail"
@@ -40,17 +43,19 @@ export default {
   data() {
     return {
       data: Array.from(Array(99), (i, k) => {
-        return {id: k};
+        return { id: k, name: k + 1 };
       }),
       fields: fields.call(this),
-      i: 1
+      select: {},
+      selects: {}
     };
   },
   created() {},
   mounted() {},
   methods: {
     test() {
-      this.$refs.test.getScrollPosition();
+      console.log(this.select);
+      // this.$set(this.select, 2, {id: 2})
     },
     clickDetail(a) {
       console.log(a);

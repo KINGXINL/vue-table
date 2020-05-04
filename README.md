@@ -16,8 +16,8 @@ import 自定义名称 from "k-vue-table";
         <tr>
             <th>属性</th>
             <th width="500">说明</th>
-            <th> 类型</th>
-            <th> 默认值</th>
+            <th>类型</th>
+            <th>默认值</th>
         </tr>
     </thead>
     <tbody>
@@ -28,16 +28,22 @@ import 自定义名称 from "k-vue-table";
             <td>30</td>
         </tr>
         <tr>
+            <td>selectList</td>
+            <td>选中的数据（row_key有设置时键为数组用row_key的值使用|:|连接</td>
+            <td>Object</td>
+            <td>{}</td>
+        </tr>
+        <tr>
             <td>field</td>
             <td>表格列字段</td>
             <td>Object</td>
-            <td> {}</td>
+            <td>{}</td>
         </tr>
         <tr>
             <td>data</td>
             <td>表格数据</td>
             <td>Array</td>
-            <td> []</td>
+            <td>[]</td>
         </tr>
         <tr>
             <td>isColDrag</td>
@@ -193,7 +199,7 @@ import 自定义名称 from "k-vue-table";
             <td>-</td>
             <td>-</td>
             <td>获取当前第一行在数组中的位置</td>
-            <td>0</td>
+            <td>当前第一行位置</td>
         </tr>
     </tbody>
 </table>

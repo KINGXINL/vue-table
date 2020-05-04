@@ -1,15 +1,17 @@
 <template>
   <div class="k-table-header" :class="[field.sort?'item-sort':'']">
     <template v-if="field.key == 'selection'">
-      <checkBox :checked.sync="isAllCheck" @checkChange="checkAll"></checkBox>
+      <div class="text">
+        <checkBox :checked.sync="isAllCheck" @checkChange="checkAll"></checkBox>
+      </div>
     </template>
     <template v-if="field.key != 'selection'">
       <div class="text" @click="itemSort()">
         <div class="title">{{field.title}}</div>
         <template v-if="field.sort">
           <div class="headersort">
-            <div class="dump" :class="[isSort == 1?'sort-dump-active':'']"></div>
-            <div class="up" :class="[isSort == 2?'sort-up-active':'']"></div>
+            <div class="dump" :class="[isSort == 1 && sortKey == field.key ?'sort-dump-active':'']"></div>
+            <div class="up" :class="[isSort == 2 && sortKey == field.key ?'sort-up-active':'']"></div>
           </div>
         </template>
       </div>
@@ -68,6 +70,10 @@ export default {
     AllSelect: {
       value: Boolean,
       default: false
+    },
+    sortKey: {
+      value: String,
+      default: null
     }
   },
   methods: {
@@ -78,10 +84,18 @@ export default {
             this.isSort = 1;
             break;
           case 1:
-            this.isSort = 2;
+            if (this.field.key == this.sortKey) {
+              this.isSort = 2;
+            } else {
+              this.isSort = 1;
+            }
             break;
           case 2:
-            this.isSort = 0;
+            if (this.field.key == this.sortKey) {
+              this.isSort = 0;
+            } else {
+              this.isSort = 1;
+            }
             break;
         }
         this.vue.$emit("itemSort", { sort: this.isSort, key: this.field.key });
@@ -118,6 +132,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 5px 5px;
+    line-height: 19px;
     .title {
       padding-right: 2px;
     }

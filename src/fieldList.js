@@ -15,6 +15,7 @@ export default function () {
     key: "position_name",
     title: "职位名称",
     width: 100,
+    sort: true,
   }, {
     key: "employee_education",
     title: "教育/文化",
@@ -29,7 +30,6 @@ export default function () {
     key: "action",
     action: true,
     width: 80,
-    fixed: "right",
     render: (h, params) => {
       let curData = params.row;
       return h("div", {
@@ -50,7 +50,7 @@ export default function () {
             },
             on: {
               click: () => {
-                this.toModifyPage(curData.employee_id)
+                this.toModifyPage(curData.id)
               }
             }
           },

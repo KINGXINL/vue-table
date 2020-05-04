@@ -22,7 +22,12 @@
                   <template v-for="(item, index) in fields">
                     <th :height="thHeight" class="main-th" v-if="item.fixed == 'left'" :key="index">
                       <div class="head-th">
-                        <head-item :vue="is" :AllSelect.sync="selectAll" :field="item"></head-item>
+                        <head-item
+                          :vue="is"
+                          :AllSelect.sync="selectAll"
+                          :field="item"
+                          :sortKey="sortKey"
+                        ></head-item>
                         <div
                           class="th-drag"
                           v-if="isColDrag"
@@ -58,7 +63,12 @@
                       :key="index"
                     >
                       <div class="head-th">
-                        <head-item :vue="is" :AllSelect.sync="selectAll" :field="item"></head-item>
+                        <head-item
+                          :vue="is"
+                          :AllSelect.sync="selectAll"
+                          :field="item"
+                          :sortKey="sortKey"
+                        ></head-item>
                         <div
                           class="th-drag"
                           v-if="isColDrag"
@@ -99,7 +109,12 @@
                       :key="index"
                     >
                       <div class="head-th">
-                        <head-item :vue="is" :AllSelect.sync="selectAll" :field="item"></head-item>
+                        <head-item
+                          :vue="is"
+                          :AllSelect.sync="selectAll"
+                          :field="item"
+                          :sortKey="sortKey"
+                        ></head-item>
                         <div
                           class="th-drag"
                           v-if="isColDrag"
@@ -433,7 +448,7 @@
         <div ref="mainHidden" class="k-main-hidden" @scroll="scroll">
           <table
             ref="mainHiddenTable"
-            style="visibility: hidden;"
+            style="visibility: hidden;width: 100%;"
             :cellspacing="0"
             :cellpadding="0"
             :border="0"
@@ -464,9 +479,9 @@ export default {
       heightScroll: false,
       showData: [],
       selectAll: false,
-      selectData: {},
       data_: [],
       count: 0,
+      sortKey: null,
       boxShadow: 1
     };
   },
@@ -475,6 +490,13 @@ export default {
       // 行高
       value: String,
       default: 30
+    },
+    selectList: {
+      // 选中数据
+      value: Object,
+      default: () => {
+        return {};
+      }
     },
     field: {
       // 表头字段
@@ -496,13 +518,43 @@ export default {
       value: Array,
       default: () => []
     },
+    row_join: {
+      // 选中的对象的键组合字段
+      value: String,
+      default: "-"
+    },
     reserveSelection: {
       // 数据变更时是否保留上次选中数据 row_key有设置时才生效
       value: Boolean,
       default: false
+    },
+    clickShow: {
+      //是否显示背景色
+      default: true
+    }
+  },
+  computed: {
+    fields: {
+      get() {
+        return this.field;
+      },
+      set() {
+        return;
+      }
+    },
+    selectData: {
+      get() {
+        return this.selectList;
+      },
+      set(v) {
+        this.$emit("update:selectList", v);
+      }
     }
   },
   watch: {
+    selectData() {
+      this.verificationIsAllCheck();
+    },
     data() {
       const dataInstanceChanged = this.data_ !== this.data;
       this.data_ = this.data;
@@ -515,10 +567,10 @@ export default {
               Key.push(x[rowKey]);
             }
             if (this.selectAll == true) {
-              this.$set(NewSelectData, Key.join("|:|"), x);
+              this.$set(NewSelectData, Key.join(this.row_join), x);
             } else {
-              if (Key.join("|:|") in this.selectData) {
-                this.$set(NewSelectData, Key.join("|:|"), x);
+              if (Key.join(this.row_join) in this.selectData) {
+                this.$set(NewSelectData, Key.join(this.row_join), x);
               }
             }
           }
@@ -552,16 +604,6 @@ export default {
       this.calculatedFieldWidth();
     }
   },
-  computed: {
-    fields: {
-      get() {
-        return this.field;
-      },
-      set() {
-        return;
-      }
-    }
-  },
   created() {},
   mounted() {
     this.data_ = this.data;
@@ -580,7 +622,7 @@ export default {
             for (let rowKey of this.row_key) {
               Key.push(this.data[x][rowKey]);
             }
-            this.$set(this.selectData, Key.join("|:|"), this.data[x]);
+            this.$set(this.selectData, Key.join(this.row_join), this.data[x]);
           } else {
             this.$set(this.selectData, x, this.data[x]);
           }
@@ -597,9 +639,9 @@ export default {
           Key.push(value.value[rowKey]);
         }
         if (value.status == false) {
-          delete this.selectData[Key.join("|:|")];
+          delete this.selectData[Key.join(this.row_join)];
         } else {
-          this.$set(this.selectData, Key.join("|:|"), value.value);
+          this.$set(this.selectData, Key.join(this.row_join), value.value);
         }
       } else {
         if (value.status == false) {
@@ -612,6 +654,7 @@ export default {
       this.$emit("checkBoxOne", Object.values(this.selectData), value.value);
     });
     this.$on("itemSort", e => {
+      this.sortKey = e.key;
       this.$emit("sort", e);
     });
     this.calculatedHiddenHeight();
@@ -654,7 +697,7 @@ export default {
           for (let rowKey of this.row_key) {
             Key.push(x[rowKey]);
           }
-          if (Key.join("|:|") in this.selectData == false) {
+          if (Key.join(this.row_join) in this.selectData == false) {
             selectStatus = false;
             break;
           }
@@ -685,7 +728,7 @@ export default {
             for (let rowKey of this.row_key) {
               Key.push(this.data[x][rowKey]);
             }
-            this.$set(this.selectData, Key.join("|:|"), this.data[x]);
+            this.$set(this.selectData, Key.join(this.row_join), this.data[x]);
           } else {
             this.$set(this.selectData, x, this.data[x]);
           }
@@ -711,8 +754,8 @@ export default {
           for (let rowKey of this.row_key) {
             Key.push(this.data[x][rowKey]);
           }
-          if (!(Key.join("|:|") in this.selectData)) {
-            this.$set(NewSelectData, Key.join("|:|"), x);
+          if (!(Key.join(this.row_join) in this.selectData)) {
+            this.$set(NewSelectData, Key.join(this.row_join), x);
           }
         } else {
           if (!(x in this.selectData)) {
@@ -725,8 +768,14 @@ export default {
       return Object.values(this.selectData);
     },
     clickDetail(detail, index) {
-      this.ClickRow = index;
-      this.$emit("clickDetail", detail, index);
+      if (this.clickShow) {
+        if (this.ClickRow != index) {
+          this.ClickRow = index;
+          this.$emit("clickDetail", detail, index);
+        } else {
+          this.ClickRow = null;
+        }
+      }
     },
     calculatedHiddenHeight() {
       // 计算表格数据的高度
@@ -773,11 +822,14 @@ export default {
         if (count > 0) {
           let defaults = this.$refs.KTopTable.clientWidth - this.TableWidth;
           if (
-            this.$refs.mainHidden.clientHeight <
-            this.$refs.mainHidden.scrollHeight
+            this.$refs.mainHidden.clientHeight / this.TdHeight <
+            this.data.length
           ) {
             defaults -= 17;
+          } else {
+            defaults -= 17;
           }
+          defaults = defaults - 1;
           for (let item in this.fields) {
             if (typeof this.fields[item].width == "undefined") {
               this.fields[item].width =
@@ -920,11 +972,15 @@ export default {
     },
     tdMouseenter(index) {
       //鼠标移到数据行显示背景色
-      this.CurrentRow = index;
+      if (this.clickShow) {
+        this.CurrentRow = index;
+      }
     },
     tdMouseleave() {
       //鼠标移出数据行取消背景色
-      this.CurrentRow = -1;
+      if (this.clickShow) {
+        this.CurrentRow = -1;
+      }
     }
   }
 };
@@ -972,10 +1028,11 @@ export default {
         border-bottom: 1px solid #ebeef5;
         border-left: 1px solid #ebeef5;
         border-right: 1px solid #ebeef5;
+        background: #f8f8f9;
       }
       tr th {
         position: relative;
-        color: #909399;
+        color: #515a6e;
         .th-drag {
           flex: 0 auto;
           width: 20px;
@@ -1039,7 +1096,7 @@ export default {
         text-align: center;
       }
       .CurrentRow {
-        background-color: #f5f7fa;
+        background-color: #ebf7ff;
       }
       .k-main-main {
         top: 0;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="checkbox-div">
     <label>
       <span class="span">
         <span class="checkboxInner" :class="[checked?'checkboxChecked':'']"></span>
@@ -12,8 +12,7 @@
 <script>
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   props: {
     name: String,
@@ -26,8 +25,7 @@ export default {
       default: false
     }
   },
-  created() {
-  },
+  created() {},
   computed: {
     checkeds: {
       get() {
@@ -48,12 +46,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.checkbox-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .checkbox {
   width: 0;
   height: 0;
   margin: 0;
 }
 .span {
+  width: 100%;
   white-space: nowrap;
   cursor: pointer;
   outline: none;
