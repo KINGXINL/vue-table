@@ -4,7 +4,7 @@
       <div ref="drag" class="drag"></div>
       <div ref="KTop" class="k-top">
         <div ref="KTopTable" class="k-top-table" :class="[heightScroll?'top-vertical-scroll':'']">
-          <div ref="kTopLeft" class="top-left-table" :class="[boxShadow == 1?'':'box-shadow']">
+          <div ref="kTopLeft" class="top-left-table">
             <table ref="topLeft" :cellspacing="0" :cellpadding="0" :border="0">
               <colgroup>
                 <template v-for="(item, index) in fields">
@@ -85,7 +85,6 @@
           <div
             ref="kTopRight"
             class="top-right-table"
-            :class="[boxShadow == 2?'':'box-shadow-right']"
           >
             <table ref="topRight" :cellspacing="0" :cellpadding="0" :border="0">
               <colgroup>
