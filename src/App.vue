@@ -12,6 +12,7 @@
         :row_key="['id']"
         :reserveSelection="true"
         :selectList.sync="select"
+        :clickShow="xxx"
         @sort="sort"
         @scroll="scroll"
         @checkBoxAll="test"
@@ -47,15 +48,17 @@ export default {
       }),
       fields: fields.call(this),
       select: {},
-      selects: {}
+      selects: {},
+      xxx: true,
     };
   },
   created() {},
   mounted() {},
   methods: {
     test() {
-      console.log(this.select);
       // this.$set(this.select, 2, {id: 2})
+      this.xxx = false;
+      this.$refs.test.set(0);
     },
     clickDetail(a) {
       console.log(a);

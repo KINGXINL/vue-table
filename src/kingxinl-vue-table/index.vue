@@ -82,10 +82,7 @@
               </thead>
             </table>
           </div>
-          <div
-            ref="kTopRight"
-            class="top-right-table"
-          >
+          <div ref="kTopRight" class="top-right-table">
             <table ref="topRight" :cellspacing="0" :cellpadding="0" :border="0">
               <colgroup>
                 <template v-for="(item, index) in fields">
@@ -744,6 +741,9 @@ export default {
       } else {
         return Object.values(this.selectData);
       }
+    },
+    setClickRow(v = 0) {
+      this.ClickRow = v;
     },
     invertSelection() {
       let NewSelectData = {};

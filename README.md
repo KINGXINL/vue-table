@@ -213,5 +213,12 @@ import 自定义名称 from "k-vue-table";
             <td>获取当前第一行在数组中的位置</td>
             <td>当前第一行位置</td>
         </tr>
+        <tr>
+            <td>setClickRow</td>
+            <td>Number</td>
+            <td>0</td>
+            <td>设置高亮的行</td>
+            <td>-</td>
+        </tr>
     </tbody>
 </table>
