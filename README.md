@@ -220,5 +220,12 @@ import 自定义名称 from "k-vue-table";
             <td>设置高亮的行</td>
             <td>-</td>
         </tr>
+        <tr>
+            <td>removeSort</td>
+            <td>-</td>
+            <td>-</td>
+            <td>清除排序</td>
+            <td>-</td>
+        </tr>
     </tbody>
 </table>

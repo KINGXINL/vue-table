@@ -1,12 +1,10 @@
 <template>
-  <div class="checkbox-div">
-    <label>
-      <span class="span">
-        <span class="checkboxInner" :class="[checked?'checkboxChecked':'']"></span>
-      </span>
-      <input class="checkbox" type="checkbox" v-model="checkeds" @change="change" />
-    </label>
-  </div>
+  <label class="checkbox-div">
+    <span class="span">
+      <span class="checkboxInner" :class="[checked?'checkboxChecked':'']"></span>
+    </span>
+    <input class="checkbox" type="checkbox" v-model="checkeds" @change="change" />
+  </label>
 </template>
 
 <script>

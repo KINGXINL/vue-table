@@ -2,7 +2,7 @@
   <div class="k-table-header" :class="[field.sort?'item-sort':'']">
     <template v-if="field.key == 'selection'">
       <div class="text">
-        <checkBox :checked.sync="isAllCheck" @checkChange="checkAll"></checkBox>
+        <checkBox :checked.sync="vue.selectAll" @checkChange="checkAll"></checkBox>
       </div>
     </template>
     <template v-if="field.key != 'selection'">
@@ -10,8 +10,14 @@
         <div class="title">{{field.title}}</div>
         <template v-if="field.sort">
           <div class="headersort">
-            <div class="dump" :class="[isSort == 1 && sortKey == field.key ?'sort-dump-active':'']"></div>
-            <div class="up" :class="[isSort == 2 && sortKey == field.key ?'sort-up-active':'']"></div>
+            <div
+              class="dump"
+              :class="[vue.isSort == 1 && vue.sortKey == field.key ?'sort-dump-active':'']"
+            ></div>
+            <div
+              class="up"
+              :class="[vue.isSort == 2 && vue.sortKey == field.key ?'sort-up-active':'']"
+            ></div>
           </div>
         </template>
       </div>
@@ -30,79 +36,52 @@
 import child from "./child.js";
 import checkBox from "./checkBox.vue";
 export default {
+  inject: ["vue"],
   components: {
     checkBox
   },
   data() {
     return {
-      renderView: child,
-      // isAllCheck: false,
-      isSort: 0
+      renderView: child
     };
-  },
-  created() {
-    this.isAllCheck = this.AllSelect;
-  },
-  computed: {
-    isAllCheck: {
-      get() {
-        return this.AllSelect;
-      },
-      set(v) {
-        this.$emit("update:AllSelect", v);
-      }
-    }
   },
   props: {
     field: {
       value: Object,
       default: () => {}
-    },
-    // 排序 0正常 1正序 2逆序
-    sort: {
-      value: Number,
-      default: 0
-    },
-    vue: {
-      value: Object,
-      default: () => {}
-    },
-    AllSelect: {
-      value: Boolean,
-      default: false
-    },
-    sortKey: {
-      value: String,
-      default: null
     }
   },
   methods: {
     itemSort() {
       if (this.field.sort) {
-        switch (this.isSort) {
+        switch (this.vue.isSort) {
           case 0:
-            this.isSort = 1;
+            this.vue.isSort = 1;
             break;
           case 1:
-            if (this.field.key == this.sortKey) {
-              this.isSort = 2;
+            if (this.field.key == this.vue.sortKey) {
+              this.vue.isSort = 2;
             } else {
-              this.isSort = 1;
+              this.vue.isSort = 1;
             }
             break;
           case 2:
-            if (this.field.key == this.sortKey) {
-              this.isSort = 0;
+            if (this.field.key == this.vue.sortKey) {
+              this.vue.isSort = 0;
             } else {
-              this.isSort = 1;
+              this.vue.isSort = 1;
             }
             break;
         }
-        this.vue.$emit("itemSort", { sort: this.isSort, key: this.field.key });
+        this.vue.$emit("itemSort", {
+          sort: this.vue.isSort,
+          key: this.field.key
+        });
       }
     },
     checkAll(v) {
-      this.$emit("update:AllSelect", v);
+      // this.$emit("update:AllSelect", v);
+      this.vue.selectAll = v;
       this.vue.$emit("checkAll", v);
     }
   }

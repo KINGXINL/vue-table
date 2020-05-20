@@ -22,12 +22,7 @@
                   <template v-for="(item, index) in fields">
                     <th :height="thHeight" class="main-th" v-if="item.fixed == 'left'" :key="index">
                       <div class="head-th">
-                        <head-item
-                          :vue="is"
-                          :AllSelect.sync="selectAll"
-                          :field="item"
-                          :sortKey="sortKey"
-                        ></head-item>
+                        <head-item :field="item"></head-item>
                         <div
                           class="th-drag"
                           v-if="isColDrag"
@@ -63,12 +58,7 @@
                       :key="index"
                     >
                       <div class="head-th">
-                        <head-item
-                          :vue="is"
-                          :AllSelect.sync="selectAll"
-                          :field="item"
-                          :sortKey="sortKey"
-                        ></head-item>
+                        <head-item :field="item"></head-item>
                         <div
                           class="th-drag"
                           v-if="isColDrag"
@@ -105,12 +95,7 @@
                       :key="index"
                     >
                       <div class="head-th">
-                        <head-item
-                          :vue="is"
-                          :AllSelect.sync="selectAll"
-                          :field="item"
-                          :sortKey="sortKey"
-                        ></head-item>
+                        <head-item :field="item"></head-item>
                         <div
                           class="th-drag"
                           v-if="isColDrag"
@@ -184,7 +169,6 @@
                   >
                     <body-item
                       :value="showItem"
-                      :vue="is"
                       :field="item"
                       :select="selectData"
                       :index="showIndex + Math.ceil(count)"
@@ -204,7 +188,6 @@
                   >
                     <body-item
                       :value="showItem"
-                      :vue="is"
                       :field="item"
                       :select="selectData"
                       :index="showIndex + Math.ceil(count)"
@@ -224,7 +207,6 @@
                   >
                     <body-item
                       :value="showItem"
-                      :vue="is"
                       :field="item"
                       :select="selectData"
                       :index="showIndex + Math.ceil(count)"
@@ -287,7 +269,6 @@
                   >
                     <body-item
                       :value="showItem"
-                      :vue="is"
                       :field="item"
                       :select="selectData"
                       :index="showIndex + Math.ceil(count)"
@@ -307,7 +288,6 @@
                   >
                     <body-item
                       :value="showItem"
-                      :vue="is"
                       :field="item"
                       :select="selectData"
                       :index="showIndex + Math.ceil(count)"
@@ -327,7 +307,6 @@
                   >
                     <body-item
                       :value="showItem"
-                      :vue="is"
                       :field="item"
                       :select="selectData"
                       :index="showIndex + Math.ceil(count)"
@@ -390,7 +369,6 @@
                   >
                     <body-item
                       :value="showItem"
-                      :vue="is"
                       :field="item"
                       :select="selectData"
                       :index="showIndex + Math.ceil(count)"
@@ -410,7 +388,6 @@
                   >
                     <body-item
                       :value="showItem"
-                      :vue="is"
                       :field="item"
                       :select="selectData"
                       :index="showIndex + Math.ceil(count)"
@@ -430,7 +407,6 @@
                   >
                     <body-item
                       :value="showItem"
-                      :vue="is"
                       :field="item"
                       :select="selectData"
                       :index="showIndex + Math.ceil(count)"
@@ -459,13 +435,17 @@ import headItem from "./components/headItem";
 import bodyItem from "./components/bodyItem";
 export default {
   name: "KingxinlVueTable",
+  provide() {
+    return {
+      vue: this
+    };
+  },
   components: {
     headItem,
     bodyItem
   },
   data() {
     return {
-      is: this,
       CurrentRow: -1,
       ClickRow: -1,
       mainLeftWidth: 0,
@@ -478,6 +458,7 @@ export default {
       data_: [],
       count: 0,
       sortKey: null,
+      isSort: 0,
       boxShadow: 1
     };
   },
@@ -666,6 +647,10 @@ export default {
     });
   },
   methods: {
+    removeSort() {
+      this.sortKey = null;
+      this.isSort = 0;
+    },
     getScrollPosition() {
       return this.count;
     },
@@ -824,15 +809,23 @@ export default {
             this.$refs.mainHidden.clientHeight / this.TdHeight <
             this.data.length
           ) {
-            defaults -= 17;
+            defaults -= 18;
           } else {
-            defaults -= 17;
+            defaults -= 1;
           }
-          defaults = defaults - 1;
+          let lx = defaults % count;
+          let for_count = 1;
           for (let item in this.fields) {
             if (typeof this.fields[item].width == "undefined") {
-              this.fields[item].width =
-                defaults / count > 60 ? defaults / count : 60;
+              let width = 0;
+              if (for_count != count) {
+                width = parseInt(defaults / count > 60 ? defaults / count : 60);
+              } else {
+                width =
+                  parseInt(defaults / count > 60 ? defaults / count : 60) + lx;
+              }
+              this.fields[item].width = width;
+              ++for_count;
             }
           }
         }

@@ -1,6 +1,6 @@
 <template>
   <div class="body" :style="{height: vue.TdHeight + 'px'}">
-    <div class="body-main">
+    <div class="body-main" :style="{lineHeight: vue.TdHeight + 'px'}">
       <template>
         <template v-if="field.key == 'selection'">
           <checkBox :checked.sync="checkStatus" @checkChange="checkOne"></checkBox>
@@ -22,6 +22,7 @@
 import checkBox from "./checkBox.vue";
 import child from "./child.js";
 export default {
+  inject: ["vue"],
   components: {
     checkBox
   },
@@ -55,10 +56,6 @@ export default {
     },
     index: {
       value: Number
-    },
-    vue: {
-      value: Object,
-      default: () => {}
     },
     select: {
       value: Array,
@@ -106,8 +103,12 @@ export default {
   overflow: hidden;
   display: flex;
   align-items: center;
+  width: 100%;
+  height: 100%;
   .body-main {
     flex: 1;
+    width: 100%;
+    height: 100%;
     padding: 5px 6px;
     overflow: hidden;
     text-overflow: ellipsis;

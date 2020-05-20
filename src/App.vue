@@ -15,7 +15,7 @@
         :clickShow="xxx"
         @sort="sort"
         @scroll="scroll"
-        @checkBoxAll="test"
+        @checkBoxAll="scroll"
       ></ktable>
       <ktable
         ref="asdv"
@@ -38,27 +38,33 @@
 import ktable from "@/kingxinl-vue-table/index.vue";
 import fields from "./fieldList.js";
 export default {
+  provide() {
+    return {
+      vue: this
+    };
+  },
   components: {
     ktable
   },
   data() {
     return {
-      data: Array.from(Array(99), (i, k) => {
+      data: Array.from(Array(111), (i, k) => {
         return { id: k, name: k + 1 };
       }),
       fields: fields.call(this),
       select: {},
       selects: {},
-      xxx: true,
+      xxx: true
     };
   },
   created() {},
   mounted() {},
   methods: {
     test() {
-      // this.$set(this.select, 2, {id: 2})
-      this.xxx = false;
-      this.$refs.test.set(0);
+      this.$refs.test.removeSort();
+      this.data = Array.from(Array(111), (i, k) => {
+        return { id: k, name: k + 1 };
+      });
     },
     clickDetail(a) {
       console.log(a);
@@ -70,7 +76,7 @@ export default {
     },
     onSearch() {},
     scroll() {
-      // this.data.push({ id: this.data.length + 2 });
+      console.log(this.select);
     },
     toModifyPage(v) {
       console.log(v);
