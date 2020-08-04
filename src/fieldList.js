@@ -11,6 +11,10 @@ export default function () {
     width: 100,
     fixed: "left",
     sort: true,
+    value: (v) => {
+      console.log(v)
+      return 123;
+    }
   }, {
     key: "position_name",
     title: "职位名称",
@@ -41,19 +45,19 @@ export default function () {
       }, [
         h(
           "Button", {
-            props: {
-              type: "primary",
-              size: "small"
-            },
-            style: {
-              marginLeft: '10px'
-            },
-            on: {
-              click: () => {
-                this.toModifyPage(curData.id)
-              }
-            }
+          props: {
+            type: "primary",
+            size: "small"
           },
+          style: {
+            marginLeft: '10px'
+          },
+          on: {
+            click: () => {
+              this.toModifyPage(curData.id)
+            }
+          }
+        },
           "查看"
         )
       ]);

@@ -5,6 +5,7 @@
         <template v-if="field.key == 'selection'">
           <checkBox :checked.sync="checkStatus" @checkChange="checkOne"></checkBox>
         </template>
+        <template v-else-if="field.value">{{field.value(value, index)}}</template>
         <template v-else-if="field.render">
           <component
             :render="field.render"

@@ -166,7 +166,13 @@ import 自定义名称 from "k-vue-table";
         </tr>
          <tr>
             <td>render</td>
-            <td>自定义渲染列,使用 Vue 的 Render 函数。传入两个参数,第一个是 h,第二个为对象,包含 column(当前列参数)、key(当前列key) 和 value(当前列参数)</td>
+            <td>自定义渲染列,使用 Vue 的 Render 函数。传入两个参数,第一个是 h,第二个为对象,包含 column(当前列参数)、key(当前列key) 和 value(当前列数据)</td>
+            <td>Function</td>
+            <td>-</td>
+        </tr>
+         <tr>
+            <td>value</td>
+            <td>自定义方法。传入两个参数,第一个是当前行数据,第二个为当前行字段 返回值为显示内容</td>
             <td>Function</td>
             <td>-</td>
         </tr>

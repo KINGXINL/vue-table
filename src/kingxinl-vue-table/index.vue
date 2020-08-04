@@ -110,7 +110,7 @@
           </div>
         </div>
       </div>
-      <div class="k-main">
+      <div class="k-main" tabindex="-1" @keydown="upAndDown">
         <div
           ref="mainMain"
           class="k-main-main"
@@ -181,7 +181,7 @@
                     @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
                     :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
-                    :style="{height: TdHeight + 'px'}"
+                    :style="{height: TdHeight + 'px', background: showItem.backgound?showItem.backgound:'', color: showItem.color?showItem.color:''}"
                     class="main-td"
                     v-if="item.fixed != 'left' && item.fixed != 'right'"
                     :key="index"
@@ -262,7 +262,7 @@
                     @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
                     :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
-                    :style="{height: TdHeight + 'px'}"
+                    :style="{height: TdHeight + 'px', background: showItem.backgound?showItem.backgound:'', color: showItem.color?showItem.color:''}"
                     class="main-td"
                     v-if="item.fixed == 'left'"
                     :key="index"
@@ -400,7 +400,7 @@
                     @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
                     :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
-                    :style="{height: TdHeight + 'px'}"
+                    :style="{height: TdHeight + 'px', background: showItem.backgound?showItem.backgound:'', color: showItem.color?showItem.color:''}"
                     class="main-td"
                     v-if="item.fixed == 'right'"
                     :key="index"
@@ -437,12 +437,12 @@ export default {
   name: "KingxinlVueTable",
   provide() {
     return {
-      vue: this
+      vue: this,
     };
   },
   components: {
     headItem,
-    bodyItem
+    bodyItem,
   },
   data() {
     return {
@@ -459,56 +459,56 @@ export default {
       count: 0,
       sortKey: null,
       isSort: 0,
-      boxShadow: 1
+      boxShadow: 1,
     };
   },
   props: {
     TdHeight: {
       // 行高
       value: String,
-      default: 30
+      default: 30,
     },
     selectList: {
       // 选中数据
       value: Object,
       default: () => {
         return {};
-      }
+      },
     },
     field: {
       // 表头字段
       value: Array,
-      default: () => []
+      default: () => [],
     },
     isColDrag: {
       // 是否可拖动
       value: Boolean,
-      default: true
+      default: true,
     },
     data: {
       // 原始数据
       value: Array,
-      default: () => []
+      default: () => [],
     },
     row_key: {
       // 选中时记录的数据 数组形式 可记录多个字段
       value: Array,
-      default: () => []
+      default: () => [],
     },
     row_join: {
       // 选中的对象的键组合字段
       value: String,
-      default: "-"
+      default: "-",
     },
     reserveSelection: {
       // 数据变更时是否保留上次选中数据 row_key有设置时才生效
       value: Boolean,
-      default: false
+      default: false,
     },
     clickShow: {
       //是否显示背景色
-      default: true
-    }
+      default: true,
+    },
   },
   computed: {
     fields: {
@@ -517,7 +517,7 @@ export default {
       },
       set() {
         return;
-      }
+      },
     },
     selectData: {
       get() {
@@ -525,8 +525,8 @@ export default {
       },
       set(v) {
         this.$emit("update:selectList", v);
-      }
-    }
+      },
+    },
   },
   watch: {
     selectData() {
@@ -556,9 +556,12 @@ export default {
           this.selectData = {};
         }
       } else {
-        if (dataInstanceChanged) {
+        if (dataInstanceChanged == true) {
           this.selectData = {};
         }
+      }
+      if (dataInstanceChanged == true) {
+        this.ClickRow = -1;
       }
       let height = this.data.length;
       this.$refs.mainHiddenTable.style.height =
@@ -579,7 +582,7 @@ export default {
     },
     field() {
       this.calculatedFieldWidth();
-    }
+    },
   },
   created() {},
   mounted() {
@@ -591,7 +594,7 @@ export default {
       this.heightScroll = true;
     }
     this.fields = [...this.fields];
-    this.$on("checkAll", v => {
+    this.$on("checkAll", (v) => {
       if (v) {
         for (let x in this.data) {
           if (this.row_key.length > 0) {
@@ -609,20 +612,22 @@ export default {
       }
       this.$emit("checkBoxAll", Object.values(this.selectData));
     });
-    this.$on("checkOne", value => {
+    this.$on("checkOne", (value) => {
       if (this.row_key.length > 0) {
         let Key = [];
         for (let rowKey of this.row_key) {
           Key.push(value.value[rowKey]);
         }
         if (value.status == false) {
-          delete this.selectData[Key.join(this.row_join)];
+          // delete this.selectData[Key.join(this.row_join)];
+          this.$delete(this.selectData, Key.join(this.row_join));
         } else {
           this.$set(this.selectData, Key.join(this.row_join), value.value);
         }
       } else {
         if (value.status == false) {
-          delete this.selectData[value.index];
+          // delete this.selectData[value.index];
+          this.$delete(this.selectData, value.index);
         } else {
           this.$set(this.selectData, value.index, value.value);
         }
@@ -630,7 +635,7 @@ export default {
       this.verificationIsAllCheck();
       this.$emit("checkBoxOne", Object.values(this.selectData), value.value);
     });
-    this.$on("itemSort", e => {
+    this.$on("itemSort", (e) => {
       this.sortKey = e.key;
       this.$emit("sort", e);
     });
@@ -647,6 +652,22 @@ export default {
     });
   },
   methods: {
+    upAndDown(e) {
+      if (this.clickShow) {
+        let count = this.ClickRow;
+        if (e.key == "ArrowUp") {
+          count--;
+        } else if (e.key == "ArrowDown") {
+          count++;
+        } else {
+          return false;
+        }
+        if (count >= 0 && count < this.data.length) {
+          this.scrollTo(count);
+          this.ClickRow = count;
+        }
+      }
+    },
     removeSort() {
       this.sortKey = null;
       this.isSort = 0;
@@ -668,6 +689,7 @@ export default {
       } else if (count <= 0) {
         this.$refs.mainHidden.scrollTop = 0;
       }
+      this.$emit("clickDetail", this.data[number], number);
     },
     verificationIsAllCheck() {
       // 判断是否全选
@@ -756,8 +778,6 @@ export default {
         if (this.ClickRow != index) {
           this.ClickRow = index;
           this.$emit("clickDetail", detail, index);
-        } else {
-          this.ClickRow = null;
         }
       }
     },
@@ -792,7 +812,7 @@ export default {
       if (this.$refs["KingXinL-TableBody"].clientWidth < this.TableWidth) {
         for (let item in this.fields) {
           if (typeof this.fields[item].width == "undefined") {
-            this.fields[item].width = 60;
+            this.fields[item].width = 40;
           }
         }
         this.scrollTh = true;
@@ -819,10 +839,10 @@ export default {
             if (typeof this.fields[item].width == "undefined") {
               let width = 0;
               if (for_count != count) {
-                width = parseInt(defaults / count > 60 ? defaults / count : 60);
+                width = parseInt(defaults / count > 40 ? defaults / count : 40);
               } else {
                 width =
-                  parseInt(defaults / count > 60 ? defaults / count : 60) + lx;
+                  parseInt(defaults / count > 40 ? defaults / count : 40) + lx;
               }
               this.fields[item].width = width;
               ++for_count;
@@ -917,8 +937,8 @@ export default {
       }
       let dragWidth =
         parseInt(this.$refs[drags + this.dragKey][0].width) + isWidth;
-      if (dragWidth < 60) {
-        dragWidth = 60;
+      if (dragWidth < 40) {
+        dragWidth = 40;
       }
       if (this.dragType == "left") {
         this.$refs["leftTop" + this.dragKey][0].width = dragWidth;
@@ -973,8 +993,8 @@ export default {
       if (this.clickShow) {
         this.CurrentRow = -1;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -991,6 +1011,7 @@ export default {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    background: #f8f8f9;
     table {
       width: 0;
       table-layout: fixed;
@@ -1020,6 +1041,7 @@ export default {
         border-bottom: 1px solid #ebeef5;
         border-left: 1px solid #ebeef5;
         border-right: 1px solid #ebeef5;
+        box-sizing: content-box;
         background: #f8f8f9;
       }
       tr th {
@@ -1051,7 +1073,7 @@ export default {
         display: flex;
         align-items: center;
         overflow: hidden;
-        background-color: #fff;
+        background-color: #f8f8f9;
         table {
           width: 0;
           table-layout: fixed;
@@ -1081,6 +1103,7 @@ export default {
       overflow: hidden;
       position: relative;
       align-items: center;
+      outline: none !important;
       table {
         width: 0;
         table-layout: fixed;
@@ -1141,6 +1164,7 @@ export default {
         border-left: 1px solid #ebeef5;
         border-right: 1px solid #ebeef5;
         overflow: hidden;
+        cursor: pointer;
       }
       .vertical-scroll {
         right: 17px;

@@ -40,21 +40,21 @@ import fields from "./fieldList.js";
 export default {
   provide() {
     return {
-      vue: this
+      vue: this,
     };
   },
   components: {
-    ktable
+    ktable,
   },
   data() {
     return {
       data: Array.from(Array(111), (i, k) => {
-        return { id: k, name: k + 1 };
+        return { id: k, name: k + 1, backgound: "red" };
       }),
       fields: fields.call(this),
       select: {},
       selects: {},
-      xxx: true
+      xxx: true,
     };
   },
   created() {},
@@ -70,7 +70,7 @@ export default {
       console.log(a);
     },
     sort() {
-      this.data = this.data.sort(function(a, b) {
+      this.data = this.data.sort(function (a, b) {
         return b.id - a.id;
       });
     },
@@ -80,8 +80,8 @@ export default {
     },
     toModifyPage(v) {
       console.log(v);
-    }
-  }
+    },
+  },
 };
 </script>
 
