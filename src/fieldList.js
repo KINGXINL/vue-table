@@ -11,7 +11,7 @@ export default function () {
     width: 100,
     fixed: "left",
     sort: true,
-    value: (v) => {
+    value: () => {
       return 123;
     }
   }, {
