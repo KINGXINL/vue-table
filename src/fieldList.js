@@ -12,7 +12,6 @@ export default function () {
     fixed: "left",
     sort: true,
     value: (v) => {
-      console.log(v)
       return 123;
     }
   }, {

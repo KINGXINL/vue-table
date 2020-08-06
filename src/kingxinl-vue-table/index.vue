@@ -220,7 +220,7 @@
         <div
           ref="mainLeft"
           class="k-main-left"
-          :class="[boxShadow == 1?'':'box-shadow']"
+          :class="[widthScroll?'horizontal-scroll':'', boxShadow == 1?'':'box-shadow']"
           @DOMMouseScroll="handleScroll"
           @mousewheel="handleScroll"
         >
@@ -235,24 +235,6 @@
                   :width="item.width"
                 />
               </template>
-              <!-- <template v-for="(item, index) in fields">
-                <col
-                  v-if="item.fixed != 'left' && item.fixed != 'right'"
-                  :key="index"
-                  :ref="'leftMain' + index"
-                  :name="index"
-                  :width="item.width"
-                />
-              </template>
-              <template v-for="(item, index) in fields">
-                <col
-                  v-if="item.fixed == 'right'"
-                  :key="index"
-                  :ref="'leftMain' + index"
-                  :name="index"
-                  :width="item.width"
-                />
-              </template>-->
             </colgroup>
             <tbody>
               <tr v-for="(showItem, showIndex) in showData" :key="showIndex">
@@ -275,33 +257,39 @@
                     ></body-item>
                   </td>
                 </template>
-                <!-- <template v-for="(item, index) in fields">
-                  <td
-                    @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
-                    @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
-                    :style="{height: TdHeight + 'px'}"
-                    class="visibility"
-                    v-if="item.fixed != 'left' && item.fixed != 'right'"
-                    :key="index"
-                  >
-                    <body-item
-                      :value="showItem"
-                      :field="item"
-                      :select="selectData"
-                      :index="showIndex + Math.ceil(count)"
-                    ></body-item>
-                  </td>
-                </template>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          ref="mainRight"
+          class="k-main-right"
+          :class="[heightScroll?'vertical-scroll':'', widthScroll?'horizontal-scroll':'', boxShadow == 2?'':'box-shadow-right']"
+          @DOMMouseScroll="handleScroll"
+          @mousewheel="handleScroll"
+        >
+          <table :cellspacing="0" :cellpadding="0" :border="0">
+            <colgroup>
+              <template v-for="(item, index) in fields">
+                <col
+                  v-if="item.fixed == 'right'"
+                  :key="index"
+                  :ref="'rightMain' + index"
+                  :name="index"
+                  :width="item.width"
+                />
+              </template>
+            </colgroup>
+            <tbody>
+              <tr v-for="(showItem, showIndex) in showData" :key="showIndex">
                 <template v-for="(item, index) in fields">
                   <td
                     @mouseenter="tdMouseenter(showIndex)"
                     @click="clickDetail(showItem, showIndex + Math.ceil(count))"
                     @mouseleave="tdMouseleave"
                     :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
-                    :style="{height: TdHeight + 'px'}"
-                    class="visibility"
+                    :style="{height: TdHeight + 'px', background: showItem.backgound?showItem.backgound:'', color: showItem.color?showItem.color:''}"
+                    class="main-td"
                     v-if="item.fixed == 'right'"
                     :key="index"
                   >
@@ -312,112 +300,17 @@
                       :index="showIndex + Math.ceil(count)"
                     ></body-item>
                   </td>
-                </template>-->
+                </template>
               </tr>
             </tbody>
           </table>
         </div>
         <div
-          ref="mainRight"
-          class="k-main-right"
-          :class="[heightScroll?'vertical-scroll':'', boxShadow == 2?'':'box-shadow-right']"
-          @DOMMouseScroll="handleScroll"
-          @mousewheel="handleScroll"
+          ref="mainHidden"
+          class="k-main-hidden"
+          :class="[widthScroll?'horizontal-scroll':'']"
+          @scroll="scroll"
         >
-          <table :cellspacing="0" :cellpadding="0" :border="0">
-            <colgroup>
-              <!-- <template v-for="(item, index) in fields">
-                <col
-                  v-if="item.fixed == 'left'"
-                  :key="index"
-                  :ref="'rightMain' + index"
-                  :name="index"
-                  :width="item.width"
-                />
-              </template>
-              <template v-for="(item, index) in fields">
-                <col
-                  v-if="item.fixed != 'left' && item.fixed != 'right'"
-                  :key="index"
-                  :ref="'rightMain' + index"
-                  :name="index"
-                  :width="item.width"
-                />
-              </template>-->
-              <template v-for="(item, index) in fields">
-                <col
-                  v-if="item.fixed == 'right'"
-                  :key="index"
-                  :ref="'rightMain' + index"
-                  :name="index"
-                  :width="item.width"
-                />
-              </template>
-            </colgroup>
-            <tbody>
-              <tr v-for="(showItem, showIndex) in showData" :key="showIndex">
-                <!-- <template v-for="(item, index) in fields">
-                  <td
-                    @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
-                    @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
-                    :style="{height: TdHeight + 'px'}"
-                    class="visibility"
-                    v-if="item.fixed == 'left'"
-                    :key="index"
-                  >
-                    <body-item
-                      :value="showItem"
-                      :field="item"
-                      :select="selectData"
-                      :index="showIndex + Math.ceil(count)"
-                    ></body-item>
-                  </td>
-                </template>
-                <template v-for="(item, index) in fields">
-                  <td
-                    @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
-                    @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
-                    :style="{height: TdHeight + 'px'}"
-                    class="visibility"
-                    v-if="item.fixed != 'left' && item.fixed != 'right'"
-                    :key="index"
-                  >
-                    <body-item
-                      :value="showItem"
-                      :field="item"
-                      :select="selectData"
-                      :index="showIndex + Math.ceil(count)"
-                    ></body-item>
-                  </td>
-                </template>-->
-                <template v-for="(item, index) in fields">
-                  <td
-                    @mouseenter="tdMouseenter(showIndex)"
-                    @click="clickDetail(showItem, showIndex + Math.ceil(count))"
-                    @mouseleave="tdMouseleave"
-                    :class="[CurrentRow == showIndex || ClickRow == showIndex + Math.ceil(count)?'CurrentRow ':'']"
-                    :style="{height: TdHeight + 'px', background: showItem.backgound?showItem.backgound:'', color: showItem.color?showItem.color:''}"
-                    class="main-td"
-                    v-if="item.fixed == 'right'"
-                    :key="index"
-                  >
-                    <body-item
-                      :value="showItem"
-                      :field="item"
-                      :select="selectData"
-                      :index="showIndex + Math.ceil(count)"
-                    ></body-item>
-                  </td>
-                </template>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div ref="mainHidden" class="k-main-hidden" @scroll="scroll">
           <table
             ref="mainHiddenTable"
             style="visibility: hidden;width: 100%;"
@@ -453,6 +346,7 @@ export default {
       TableWidth: 0,
       thHeight: 0,
       heightScroll: false,
+      widthScroll: false,
       showData: [],
       selectAll: false,
       data_: [],
@@ -642,7 +536,11 @@ export default {
     this.calculatedHiddenHeight();
     this.$nextTick(() => {
       this.$refs.mainRight.scrollLeft = 10000000;
+      window.addEventListener("resize", this.calculatedHiddenHeight);
     });
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.calculatedHiddenHeight);
   },
   activated() {
     this.$nextTick(() => {
@@ -790,6 +688,11 @@ export default {
         this.$refs.mainHidden.scrollHeight > this.$refs.mainHidden.clientHeight
       ) {
         this.heightScroll = true;
+      }
+      if (this.$refs.mainMain.scrollWidth > this.$refs.mainMain.clientWidth) {
+        this.widthScroll = true;
+      } else {
+        this.widthScroll = false;
       }
       this.calculatedShowData();
     },
@@ -1120,7 +1023,7 @@ export default {
         bottom: 0;
         z-index: 10;
         overflow-y: hidden;
-        overflow-x: scroll;
+        // overflow-x: scroll;
         position: absolute;
         background-color: #fff;
       }
@@ -1130,7 +1033,7 @@ export default {
         left: 0;
         bottom: 0;
         z-index: 11;
-        bottom: 17px;
+        // bottom: 17px;
         background-color: #fff;
         overflow: hidden;
         position: absolute;
@@ -1141,7 +1044,7 @@ export default {
         right: 0;
         bottom: 0;
         z-index: 11;
-        bottom: 17px;
+        // bottom: 17px;
         background-color: #fff;
         overflow: hidden;
         position: absolute;
@@ -1152,7 +1055,7 @@ export default {
         right: 0;
         bottom: 0;
         z-index: 9;
-        bottom: 17px;
+        // bottom: 17px;
         overflow-y: auto;
         overflow-x: hidden;
         position: absolute;
@@ -1168,6 +1071,9 @@ export default {
       }
       .vertical-scroll {
         right: 17px;
+      }
+      .horizontal-scroll {
+        bottom: 17px;
       }
     }
     .box-shadow {

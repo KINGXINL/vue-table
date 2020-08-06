@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       data: Array.from(Array(111), (i, k) => {
-        return { id: k, name: k + 1, backgound: "red" };
+        return { id: k, name: k + 1, backgound: "red", color: "#fff" };
       }),
       fields: fields.call(this),
       select: {},
@@ -66,8 +66,7 @@ export default {
         return { id: k, name: k + 1 };
       });
     },
-    clickDetail(a) {
-      console.log(a);
+    clickDetail() {
     },
     sort() {
       this.data = this.data.sort(function (a, b) {
