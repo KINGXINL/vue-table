@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <div class="tops">
-      <button @click="test">滚动到指定位置</button>
-    </div>
     <div id="nav">
       <ktable
         ref="test"
@@ -14,19 +11,15 @@
         :selectList.sync="select"
         :clickShow="xxx"
         @sort="sort"
-        @scroll="scroll"
-        @checkBoxAll="scroll"
       ></ktable>
       <ktable
         ref="asdv"
         :field="fields"
         :data="data"
         @sort="sort"
-        @scroll="scroll"
         :selectList.sync="selects"
         :row_key="['id']"
         :reserveSelection="true"
-        @checkBoxAll="clickDetail"
         :TdHeight="40"
       ></ktable>
     </div>
@@ -57,28 +50,11 @@ export default {
       xxx: true,
     };
   },
-  created() {},
-  mounted() {},
   methods: {
-    test() {
-      this.$refs.test.removeSort();
-      this.data = Array.from(Array(111), (i, k) => {
-        return { id: k, name: k + 1 };
-      });
-    },
-    clickDetail() {
-    },
     sort() {
       this.data = this.data.sort(function (a, b) {
         return b.id - a.id;
       });
-    },
-    onSearch() {},
-    scroll() {
-      console.log(this.select);
-    },
-    toModifyPage(v) {
-      console.log(v);
     },
   },
 };
