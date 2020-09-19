@@ -472,6 +472,7 @@ export default {
           this.heightScroll = false;
         }
         this.$refs.mainRight.scrollLeft = 10000000;
+        this.calculatedHiddenHeight();
       });
     },
     field() {
@@ -777,6 +778,7 @@ export default {
       this.$refs.mainRight.style.width = this.mainRightWidth + "px";
       this.$nextTick(() => {
         this.$refs.mainRight.scrollLeft = 10000000;
+        this.calculatedHiddenHeight();
         this.thHeight = this.$refs.KTopTable.clientHeight - 2;
       });
     },
