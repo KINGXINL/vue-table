@@ -12,7 +12,7 @@
         :clickShow="xxx"
         @sort="sort"
       ></ktable>
-      <ktable
+      <!-- <ktable
         ref="asdv"
         :field="fields"
         :data="data"
@@ -21,7 +21,7 @@
         :row_key="['id']"
         :reserveSelection="true"
         :TdHeight="40"
-      ></ktable>
+      ></ktable> -->
     </div>
     <div class="fool"></div>
   </div>

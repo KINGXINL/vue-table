@@ -22,9 +22,11 @@ export default function () {
   }, {
     key: "employee_education",
     title: "教育/文化",
+    width: 360,
   }, {
     key: "employee_education",
     title: "教育/文化",
+    width: 360,
   }, {
     key: "employee_education",
     title: "教育/文化",

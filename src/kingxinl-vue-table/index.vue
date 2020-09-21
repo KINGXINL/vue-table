@@ -544,11 +544,15 @@ export default {
     window.removeEventListener("resize", this.calculatedHiddenHeight);
   },
   activated() {
+    window.addEventListener("resize", this.calculatedHiddenHeight);
     this.$nextTick(() => {
       this.$refs.mainRight.scrollLeft = 10000000;
       this.$refs.mainHidden.scrollTop =
         this.count * (parseInt(this.TdHeight) + 1);
     });
+  },
+  deactivated() {
+    window.removeEventListener("resize", this.calculatedHiddenHeight);
   },
   methods: {
     upAndDown(e) {
