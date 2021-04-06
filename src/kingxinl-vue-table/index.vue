@@ -664,7 +664,7 @@ export default {
             Key.push(this.data[x][rowKey]);
           }
           if (!(Key.join(this.row_join) in this.selectData)) {
-            this.$set(NewSelectData, Key.join(this.row_join), x);
+            this.$set(NewSelectData, Key.join(this.row_join), this.data[x]);
           }
         } else {
           if (!(x in this.selectData)) {

@@ -23,7 +23,9 @@
         :TdHeight="40"
       ></ktable> -->
     </div>
-    <div class="fool"></div>
+    <div class="fool">
+      <button @click="test">test</button>
+    </div>
   </div>
 </template>
 
@@ -50,10 +52,18 @@ export default {
       xxx: true,
     };
   },
+  watch: {
+    select(v) {
+      console.log(v);
+    },
+  },
   methods: {
+    test() {
+      this.$refs.test.invertSelection();
+    },
     sort() {
-      this.data = this.data.sort(function (a, b) {
-        return b.id - a.id;
+      this.data = Array.from(Array(111), (i, k) => {
+        return { id: k, name: k + 1, backgound: "red", color: "#fff" };
       });
     },
   },
