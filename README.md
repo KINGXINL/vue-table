@@ -176,6 +176,12 @@ import 自定义名称 from "k-vue-table";
             <td>Function</td>
             <td>-</td>
         </tr>
+         <tr>
+            <td>align</td>
+            <td>内容对齐方式,可选值为 left 左侧和 right 右侧（为空则左右对齐）</td>
+            <td>String</td>
+            <td>-</td>
+        </tr>
     </tbody>
 </table>
 

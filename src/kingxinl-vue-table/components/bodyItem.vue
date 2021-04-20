@@ -1,19 +1,39 @@
 <template>
-  <div class="body" :style="{height: vue.TdHeight + 'px'}">
-    <div class="body-main" :style="{lineHeight: vue.TdHeight + 'px'}">
+  <div class="body" :style="{ height: vue.TdHeight + 'px' }">
+    <div
+      class="body-main"
+      :style="{ lineHeight: vue.TdHeight + 'px' }"
+      :class="
+        field.align == 'left'
+          ? 'body-main-left'
+          : field.align == 'right'
+          ? 'body-main-right'
+          : ''
+      "
+    >
       <template>
         <template v-if="field.key == 'selection'">
-          <checkBox :checked.sync="checkStatus" @checkChange="checkOne"></checkBox>
+          <checkBox :checked.sync="checkStatus" @checkChange="checkOne">
+          </checkBox>
         </template>
-        <template v-else-if="field.value">{{field.value(value, index)}}</template>
+        <template v-else-if="field.value">
+          {{ field.value(value, index) }}
+        </template>
         <template v-else-if="field.render">
           <component
             :render="field.render"
-            :params="{column: field,key: field.key, value: value, index: index}"
+            :params="{
+              column: field,
+              key: field.key,
+              value: value,
+              index: index,
+            }"
             :is="renderView"
           ></component>
         </template>
-        <template v-else>{{value[field.key]}}</template>
+        <template v-else>
+          {{ value[field.key] }}
+        </template>
       </template>
     </div>
   </div>
@@ -25,13 +45,13 @@ import child from "./child.js";
 export default {
   inject: ["vue"],
   components: {
-    checkBox
+    checkBox,
   },
   data() {
     return {
       renderView: child,
       status: false,
-      checkStatus: false
+      checkStatus: false,
     };
   },
   created() {
@@ -49,19 +69,19 @@ export default {
   props: {
     value: {
       value: Object,
-      default: () => {}
+      default: () => {},
     },
     field: {
       value: Object,
-      default: () => {}
+      default: () => {},
     },
     index: {
-      value: Number
+      value: Number,
     },
     select: {
       value: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   watch: {
     select() {
@@ -85,17 +105,17 @@ export default {
       } else {
         this.checkStatus = this.index in this.vue.selectData;
       }
-    }
+    },
   },
   methods: {
     checkOne(v) {
       this.vue.$emit("checkOne", {
         status: v,
         index: this.index,
-        value: this.value
+        value: this.value,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -114,6 +134,12 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+  .body-main-left {
+    text-align: left;
+  }
+  .body-main-right {
+    text-align: right;
   }
 }
 </style>
