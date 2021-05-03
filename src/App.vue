@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       data: Array.from(Array(111), (i, k) => {
-        return { id: k, name: k + 1, backgound: "red", color: "#fff" };
+        return { id: k, name: k + 1, backgound: "red", color: "#000" };
       }),
       fields: fields.call(this),
       select: {},
@@ -63,7 +63,7 @@ export default {
     },
     sort() {
       this.data = Array.from(Array(111), (i, k) => {
-        return { id: k, name: k + 1, backgound: "red", color: "#fff" };
+        return { id: k, name: k + 1, backgound: "red", color: "#000" };
       });
     },
   },

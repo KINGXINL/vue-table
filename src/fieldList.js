@@ -11,9 +11,6 @@ export default function () {
     width: 100,
     fixed: "left",
     sort: true,
-    value: () => {
-      return 123;
-    }
   }, {
     key: "position_name",
     title: "职位名称",

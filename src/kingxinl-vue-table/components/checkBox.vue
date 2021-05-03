@@ -1,9 +1,17 @@
 <template>
-  <label class="checkbox-div">
+  <label class="checkbox-div" @click.stop="t">
     <span class="span">
-      <span class="checkboxInner" :class="[checked?'checkboxChecked':'']"></span>
+      <span
+        class="checkboxInner"
+        :class="[checked ? 'checkboxChecked' : '']"
+      ></span>
     </span>
-    <input class="checkbox" type="checkbox" v-model="checkeds" @change="change" />
+    <input
+      class="checkbox"
+      type="checkbox"
+      v-model="checkeds"
+      @change="change"
+    />
   </label>
 </template>
 
@@ -16,12 +24,12 @@ export default {
     name: String,
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     checked: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   created() {},
   computed: {
@@ -31,15 +39,16 @@ export default {
       },
       set() {
         return;
-      }
-    }
+      },
+    },
   },
   methods: {
+    t() {},
     change(item) {
       this.$emit("checkChange", item.target.checked);
       this.$emit("update:checked", item.target.checked);
-    }
-  }
+    },
+  },
 };
 </script>
 
