@@ -11,8 +11,9 @@ export default function () {
     width: 100,
     fixed: "left",
     sort: true,
+    tooltip: true
   }, {
-    key: "position_name",
+    key: "name",
     title: "职位名称",
     width: 100,
     sort: true,

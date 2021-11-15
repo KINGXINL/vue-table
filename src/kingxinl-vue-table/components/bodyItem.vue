@@ -10,6 +10,7 @@
           ? 'body-main-right'
           : ''
       "
+      :title="field.tooltip ? (field.value ? field.value(value, index) : value[field.key]) : ''"
     >
       <template>
         <template v-if="field.key == 'selection'">

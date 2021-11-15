@@ -153,6 +153,12 @@ import 自定义名称 from "k-vue-table";
             <td>false</td>
         </tr>
         <tr>
+            <td>tooltip</td>
+            <td>是否显示title</td>
+            <td>Boolean</td>
+            <td>false</td>
+        </tr>
+        <tr>
             <td>fixed</td>
             <td>列是否固定在左侧或者右侧,可选值为 left 左侧和 right 右侧</td>
             <td>String</td>
